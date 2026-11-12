@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="AutoCheck Pakistan Pro - Complete vehicle inspection, accident assessment, mechanical checks and document verification platform in Pakistan.">
+<title>AutoCheck Pakistan Pro</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#f2f5f8;
+ color:#182438;
+}
+
+header{
+ background:#101827;
+ color:white;
+ padding:20px;
+ text-align:center;
+}
+
+header h1{margin:0;color:#c9f36b}
+header p{font-size:12px;color:#aaa}
+
+.hero{
+ background:#101827;
+ color:white;
+ text-align:center;
+ padding:35px 15px;
+}
+
+.hero h2{font-size:32px}
+.hero span{color:#c9f36b}
+
+.container{
+ max-width:900px;
+ margin:20px auto;
+ padding:15px;
+}
+
+.card{
+ background:white;
+ padding:20px;
+ border-radius:12px;
+ margin-bottom:18px;
+ box-shadow:0 3px 12px #0000000c;
+}
+
+h3{color:#527d29}
+
+input,select,textarea{
+ width:100%;
+ padding:12px;
+ margin:7px 0 14px;
+ border:1px solid #ccd3dc;
+ border-radius:7px;
+}
+
+label{font-size:13px;font-weight:bold}
+
+.check{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ padding:9px 0;
+ border-bottom:1px solid #eee;
+ font-size:13px;
+}
+
+.check input{width:auto;margin:0}
+
+button{
+ background:#c9f36b;
+ border:0;
+ padding:14px 20px;
+ border-radius:8px;
+ font-weight:bold;
+ cursor:pointer;
+}
+
+button:hover{background:#aee44d}
+
+.result{
+ background:#edf6e5;
+ padding:15px;
+ border-radius:8px;
+ display:none;
+ margin-top:15px;
+}
+
+footer{
+ background:#101827;
+ color:white;
+ padding:25px;
+ text-align:center;
+ font-size:12px;
+}
+
+@media(max-width:600px){
+ .hero h2{font-size:25px}
+ .card{padding:15px}
+}
+
+@media print{
+ button{display:none}
+ body{background:white}
+ .card{box-shadow:none}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🚘 AutoCheck Pakistan Pro</h1>
+<p>SMART VEHICLE INSPECTION & VERIFICATION SYSTEM</p>
+</header>
+
+<section class="hero">
+<h2>Buy Your Car With <span>Confidence</span></h2>
+<p>Accident Check • Paint Inspection • Engine Assessment • Document Verification</p>
+</section>
+
+<div class="container">
+
+<div class="card">
+<h3>🚗 Vehicle Information</h3>
+
+<label>Car Company</label>
+<input id="company" placeholder="Toyota / Honda / Suzuki">
+
+<label>Car Model</label>
+<input id="model" placeholder="Corolla / Civic">
+
+<label>Model Year</label>
+<input id="year" placeholder="2020">
+
+<label>Registration Number</label>
+<input id="reg" placeholder="ABC-123">
+
+<label>Engine Number</label>
+<input id="engine" placeholder="Engine Number">
+
+<label>Chassis Number</label>
+<input id="chassis" placeholder="Chassis Number">
+
+<label>Car Mileage</label>
+<input id="mileage" placeholder="Kilometers">
+
+<label>Seller Name</label>
+<input id="seller" placeholder="Seller Name">
+</div>
+
+<div class="card">
+<h3>🎨 Paint & Accident Inspection</h3>
+<div id="paint"></div>
+</div>
+
+<div class="card">
+<h3>🔧 Engine & Mechanical Inspection</h3>
+<div id="mechanical"></div>
+</div>
+
+<div class="card">
+<h3>📄 Documents Verification</h3>
+<div id="documents"></div>
+</div>
+
+<div class="card">
+<h3>📸 Inspection Evidence</h3>
+
+<label>Upload Car Photos / Documents</label>
+<input type="file" id="photos" multiple accept="image/*,.pdf">
+
+<label>Upload Engine Sound / Video</label>
+<input type="file" id="media" multiple accept="audio/*,video/*">
+
+<label>Inspector Comments</label>
+<textarea id="comments" rows="5"
+placeholder="Write inspection findings and vehicle defects..."></textarea>
+</div>
+
+<div class="card">
+<h3>📊 Vehicle Inspection Report</h3>
+
+<button onclick="generateReport()">
+Generate Inspection Report
+</button>
+
+<div class="result" id="result"></div>
+</div>
+
+</div>
+
+<footer>
+<h3>AutoCheck Pakistan Pro</h3>
+<p>Inspect Before You Invest</p>
+<p>Pakistan Vehicle Inspection & Assessment Platform</p>
+</footer>
+
+<script>
+
+const sections = {
+
+paint:[
+"Original paint checked",
+"Repainted panels checked",
+"Putty and filler signs checked",
+"Bonnet accident signs checked",
+"Roof accident checked",
+"Pillars inspected",
+"Chassis damage checked",
+"Doors and fenders inspected",
+"Boot floor inspected",
+"Airbags checked"
+],
+
+mechanical:[
+"Engine sound checked",
+"Cold start checked",
+"Engine smoke checked",
+"Oil leakage checked",
+"Coolant leakage checked",
+"Gearbox checked",
+"Clutch checked",
+"Suspension checked",
+"Steering checked",
+"Brakes checked",
+"AC checked",
+"OBD scanner checked"
+],
+
+documents:[
+"Original registration book",
+"Smart card verified",
+"Original vehicle file",
+"Seller CNIC and ownership matched",
+"Token tax paid",
+"Bank lease clearance / NOC",
+"Police theft verification",
+"Engine number matched",
+"Chassis number matched",
+"Purchase invoices checked",
+"Import customs documents",
+"Auction sheet verified",
+"Traffic challans checked",
+"Transfer / biometric readiness",
+"Sale agreement",
+"Service history",
+"Insurance / fitness if applicable"
+]
+
+};
+
+function buildChecks(id,items){
+
+document.getElementById(id).innerHTML =
+items.map(item=>`
+<label class="check">
+<input type="checkbox" class="inspection-check">
+${item}
+</label>
+`).join("");
+
+}
+
+buildChecks("paint",sections.paint);
+buildChecks("mechanical",sections.mechanical);
+buildChecks("documents",sections.documents);
+
+function escapeHTML(value){
+
+return String(value).replace(/[&<>"']/g,c=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#39;"
+})[c]);
+
+}
+
+function generateReport(){
+
+const company=document.getElementById("company").value.trim();
+const model=document.getElementById("model").value.trim();
+
+if(!company || !model){
+
+alert("Please enter car company and model!");
+return;
+
+}
+
+const checks=document.querySelectorAll(".inspection-check");
+
+const completed=[...checks].filter(x=>x.checked).length;
+
+const total=checks.length;
+
+const result=document.getElementById("result");
+
+result.style.display="block";
+
+result.innerHTML=`
+
+<h3>AutoCheck Pakistan Pro Report</h3>
+
+<p><b>Vehicle:</b> ${escapeHTML(company)} ${escapeHTML(model)}</p>
+
+<p><b>Year:</b> ${escapeHTML(document.getElementById("year").value)}</p>
+
+<p><b>Registration:</b> ${escapeHTML(document.getElementById("reg").value)}</p>
+
+<p><b>Engine Number:</b> ${escapeHTML(document.getElementById("engine").value)}</p>
+
+<p><b>Chassis Number:</b> ${escapeHTML(document.getElementById("chassis").value)}</p>
+
+<p><b>Mileage:</b> ${escapeHTML(document.getElementById("mileage").value)}</p>
+
+<p><b>Seller:</b> ${escapeHTML(document.getElementById("seller").value)}</p>
+
+<p><b>Inspection Points:</b> ${completed}/${total}</p>
+
+<p><b>Not Reviewed:</b> ${total-completed}</p>
+
+<p><b>Inspector Notes:</b><br>
+${escapeHTML(document.getElementById("comments").value)}
+</p>
+
+<p style="color:#a06c16">
+⚠ Checklist completion does not mean official vehicle clearance.
+Government and bank verification must be confirmed through authorized sources.
+</p>
+
+<button onclick="window.print()">Print / Save PDF</button>
+
+`;
+
+}
+
+</script>
+
+</body>
+</html>
